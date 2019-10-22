@@ -1,11 +1,13 @@
 package com.bolsadeideas.springboot.web.app.controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.bolsadeideas.springboot.web.app.model.Usuario;
@@ -40,15 +42,16 @@ public class IndexController {
 	
 	@GetMapping("/listar")
 	public String listar(Model modelo) {
-		Usuario usuario = Usuario.builder()
-				.nombre("jovan")
-				.apellido("Renteria")
-				.email("jdsd@sds.com")
-				.build();
-		List<Usuario> usuarios = new  ArrayList<>();
-		modelo.addAttribute("usuarios", usuarios);
+		//modelo.addAttribute("usuarios", usuarios);
 		modelo.addAttribute("titulo", "Listado Usuarios");
 		return "listar";
+	}
+	
+	@ModelAttribute("usuarios")
+	public List<Usuario> listaUsers(){
+		List<Usuario> usuarios = Arrays.asList(Usuario.builder().nombre("jose").apellido("tale").email("sas@sds.com").build(),
+				Usuario.builder().nombre("maria").apellido("asa").email("sas@sds.com").build(), Usuario.builder().nombre("diana").apellido("tale").email("sas@sds.com").build());
+		return usuarios;
 	}
 
 }
